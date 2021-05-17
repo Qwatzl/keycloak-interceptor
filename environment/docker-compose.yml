@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  keycloak:
+    image: jboss/keycloak
+    ports:
+    - "8000:8080"
+    environment:
+      KEYCLOAK_USER: tim.tester
+      KEYCLOAK_PASSWORD: password123
+      KEYCLOAK_IMPORT: /tmp/keycloak.json
+    volumes:
+      - ./keycloak/keycloak.json:/tmp/keycloak.json

@@ -1,0 +1,10 @@
+{
+  "realm": "IT",
+  "auth-server-url": "http://localhost:8000/auth/",
+  "ssl-required": "external",
+  "resource": "confidential",
+  "credentials": {
+    "secret": "7ff44353-e5ac-45be-bde7-e3a228f7b47d"
+  },
+  "confidential-port": 0
+}
