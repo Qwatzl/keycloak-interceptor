@@ -2,15 +2,13 @@ package oidc
 
 import (
 	"keycloak-interceptor/oidc/authentication"
+	"keycloak-interceptor/oidc/http2"
 	"keycloak-interceptor/oidc/shared"
 	"keycloak-interceptor/oidc/token"
 	"net/http"
 )
 
 const (
-	httpHeaderAuthorization = "authorization"
-	httpHeaderLocation = "location"
-
 	oidcCode = "code"
 	empty    = ""
 )
@@ -55,11 +53,11 @@ func (k *Keycloak) Intercept(next http.Handler) http.Handler {
 
 		// redirect to login page
 		authReq := authentication.NewRequest(k.endpoints.Authorization, k.config.Resource, toRedirectURI(r))
-		w.Header().Set(httpHeaderLocation, authReq.ToString())
+		w.Header().Set(http2.HeaderLocation, authReq.ToString())
 		w.WriteHeader(http.StatusFound)
 	})
 }
 
 func toRedirectURI(r *http.Request) string {
-	return "http://"+r.Host+r.URL.Path
+	return "http://" + r.Host + r.URL.Path
 }

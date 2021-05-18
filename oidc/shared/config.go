@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"keycloak-interceptor/oidc/http2"
 	"log"
 	"os"
 )
@@ -58,7 +59,7 @@ func InitEndpoints(config *JSON) *Endpoints {
 
 	url := fmt.Sprintf("%srealms/%s/.well-known/openid-configuration", config.AuthServerURL, config.Realm)
 	var endpoints Endpoints
-	if err := Request(url, &endpoints); err != nil {
+	if err := http2.Request(url, &endpoints); err != nil {
 		log.Fatal("auth server initialization failed")
 	}
 

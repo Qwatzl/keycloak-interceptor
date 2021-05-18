@@ -1,4 +1,4 @@
-package shared
+package http2
 
 import (
 	"encoding/json"

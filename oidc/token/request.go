@@ -2,6 +2,7 @@ package token
 
 import (
 	"encoding/base64"
+	"keycloak-interceptor/oidc/http2"
 	"keycloak-interceptor/oidc/shared"
 	"net/http"
 	"net/url"
@@ -49,11 +50,11 @@ func (t *request) toRequest() (*http.Request, error) {
 		return nil, err
 	}
 
-	req.Header.Set("content-type", "application/x-www-form-urlencoded")
+	req.Header.Set(http2.HeaderContentType, http2.HeaderContentTypeFormURLEncoded)
 	if t.credentials != nil {
 		encoder := base64.StdEncoding
 		cred := t.clientId + ":" + t.credentials.Secret
-		req.Header.Set("authorization", "basic "+encoder.EncodeToString([]byte(cred)))
+		req.Header.Set(http2.HeaderAuthorization, "basic "+encoder.EncodeToString([]byte(cred)))
 	}
 
 	return req, nil
