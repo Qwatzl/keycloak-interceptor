@@ -33,6 +33,10 @@ func startContainer(cli *client.Client, ctx context.Context, name string, port s
 		Image:        name,
 		ExposedPorts: nat.PortSet{"8080": struct{}{}},
 	}
+
+	body, _ := cli.ImagePull(ctx, name, types.ImagePullOptions{})
+	body.Close()
+
 	hostConfig := container.HostConfig{
 		PortBindings: map[nat.Port][]nat.PortBinding{nat.Port("8080"): {{HostIP: "127.0.0.1", HostPort: port}}},
 	}
