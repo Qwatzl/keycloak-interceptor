@@ -30,7 +30,7 @@ func (v *Verifier) Verify(code string, redirectURI string) bool {
 		return false
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := v.client.Do(req)
 	if err != nil {
 		log.Println("unable to request an oidc token", err)
 		return false
